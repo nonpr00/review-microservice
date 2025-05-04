@@ -1,6 +1,6 @@
-import { Review } from "../models/Review.js"; // Asegúrate de que la ruta sea correcta
+/*
+import { Review } from "../models/review";
 
-// GET reviews by book
 export const getBookReviews = async (req, res) => {
   try {
     const reviews = await Review.find({ id_book: Number(req.params.bookId) }).sort({ date: -1 });
@@ -23,10 +23,9 @@ export const getUserReviews = async (req, res) => {
 // POST create new review
 export const addReview = async (req, res) => {
   try {
-    const { id_user, username, id_book, content, rating } = req.body; // Extraer solo los campos relevantes del body
-    const newReview = new Review({ id_user, username, id_book, content, rating });
-    const savedReview = await newReview.save();
-    res.status(201).json(savedReview);
+    const newReview = new Review(req.body);
+    const saved = await newReview.save();
+    res.status(201).json(saved);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -35,14 +34,15 @@ export const addReview = async (req, res) => {
 // PUT update review
 export const updateReview = async (req, res) => {
   try {
-    const { content, rating } = req.body; // Solo permitimos actualizar content y rating, la fecha se maneja automáticamente o no se actualiza aquí
-    const updatedReview = await Review.findByIdAndUpdate(
+    const { content, rating, date } = req.body;
+    //const { texto, calificacion, fecha } = req.body;
+    const updated = await Review.findByIdAndUpdate(
       req.params.id,
-      { content, rating }, // Solo pasamos los campos a actualizar
+      { content, rating, date },
       { new: true }
     );
-    if (!updatedReview) return res.status(404).json({ error: "Review not found" });
-    res.json(updatedReview);
+    if (!updated) return res.status(404).json({ error: "Review not found" });
+    res.json(updated);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -53,8 +53,9 @@ export const deleteReview = async (req, res) => {
   try {
     const result = await Review.findByIdAndDelete(req.params.id);
     if (!result) return res.status(404).json({ error: "Review not found" });
-    res.json({ message: "Review eliminada con éxito" }); // Mensaje de éxito más descriptivo
+    res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+*/

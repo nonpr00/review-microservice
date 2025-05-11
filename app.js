@@ -9,14 +9,26 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-}));
+import swaggerUi from "swagger-ui-express";
+import fs from "fs";
+const swaggerDocument = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf-8'));
+
+if (!process.env.FRONTEND_URL) {
+    app.use(cors({
+        origin: '*'
+    }));
+} else {
+    app.use(cors({
+        origin: process.env.FRONTEND_URL,
+        credentials: true,
+    }));
+}
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(morgan("dev"));
 
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/reviews", reviewRoutes);
 
 export default app;

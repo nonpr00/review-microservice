@@ -1,4 +1,4 @@
-import { Like } from "../models/Like.js"; // Asegúrate de que la ruta sea correcta
+import { Like } from "../models/Like.js";
 
 // CREATE: Añadir un nuevo like
 export const addLike = async (req, res) => {

@@ -15,7 +15,8 @@ const swaggerDocument = JSON.parse(fs.readFileSync('./swagger-output.json', 'utf
 
 if (!process.env.FRONTEND_URL) {
     app.use(cors({
-        origin: '*'
+        origin: '*',
+        credentials: false,
     }));
 } else {
     app.use(cors({
@@ -23,6 +24,8 @@ if (!process.env.FRONTEND_URL) {
         credentials: true,
     }));
 }
+
+console.log(process.env.API_IP);
 
 app.use(cookieParser());
 app.use(express.json());

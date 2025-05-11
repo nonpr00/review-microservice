@@ -1,11 +1,15 @@
 import swaggerAutogen from 'swagger-autogen';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const doc = {
   info: {
     title: 'Reviews API',
     description: 'Documentation for the Reviews API',
   },
-  host: 'localhost:4000/api',
+  host: process.env.API_IP ? `${process.env.API_IP}:4000/api/reviews` : 'localhost:4000/api/reviews',
+  //host: 'localhost:4000/api',
   schemes: ['http'],
 };
 

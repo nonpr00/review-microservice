@@ -1,5 +1,4 @@
-import { Review } from "../models/Review.js"; // Asegúrate de que la ruta sea correcta
-
+import { Review } from "../models/Review.js";
 // GET reviews by book
 export const getBookReviews = async (req, res) => {
   try {
